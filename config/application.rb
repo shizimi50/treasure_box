@@ -12,7 +12,7 @@ require "action_mailbox/engine"
 require "action_text/engine"
 require "action_view/railtie"
 require "action_cable/engine"
-# require "sprockets/railtie"
+require "sprockets/railtie"
 require "rails/test_unit/railtie"
 
 # Require the gems listed in Gemfile, including any gems
@@ -24,6 +24,10 @@ module E2rMini
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.1
 
+    config.middleware.use ActionDispatch::Cookies #cookie機能を提供
+    config.middleware.use ActionDispatch::Session::CookieStore #セッションをcookieに保存する役割を担当する
+    config.middleware.use ActionDispatch::ContentSecurityPolicy::Middleware #Content-Security-Policyヘッダー設定用のDSLを提供
+    
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files
@@ -35,6 +39,7 @@ module E2rMini
     # Only loads a smaller set of middleware suitable for API only apps.
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
-    config.api_only = true
+    config.api_only = true #session storeをcookieにする場合、true にした上で必要なmiddle wearを読み込む
+    config.action_controller.include_all_helpers = false
   end
 end
