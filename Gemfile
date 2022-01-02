@@ -10,8 +10,15 @@ gem 'mysql2'
 # Use Puma as the app server
 gem 'puma', '~> 5.0'
 
-#webpacker
+# react-rails
+gem 'react-rails'
+
+# webpacker
 gem 'webpacker'
+
+# Carrierwave for uploading
+gem 'carrierwave', '~> 1.3.1' #アップロードするために必要
+gem 'mini_magick', '~> 4.9.5' #画像をリサイズするのに必要
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.7'
@@ -29,8 +36,20 @@ gem 'bootsnap', '>= 1.4.4', require: false
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 gem 'rack-cors'
 
-#Define environment variables
+# 論理削除
+gem 'paranoia'
+
+# Define environment variables
 gem 'dotenv-rails'
+
+# Windows platform
+gem 'wdm' if Gem.win_platform?
+
+# ハッシュ化を行うためのgem
+gem 'bcrypt', '~> 3.1.16'
+
+# パスワードリセットを行うためのgem
+# gem 'sorcery'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
