@@ -40,7 +40,7 @@ gem 'rack-cors'
 gem 'paranoia'
 
 # Define environment variables
-gem 'dotenv-rails'
+gem 'dotenv-rails' #追加
 
 # Windows platform
 gem 'wdm' if Gem.win_platform?
