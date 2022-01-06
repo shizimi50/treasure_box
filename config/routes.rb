@@ -33,16 +33,23 @@ Rails.application.routes.draw do
 
       # resources :password_resets, only: %i[create update]
 
-    resources :dashboard, only: %i[index]
-    resources :favorites, except: %i[show] do
-      collection do
-        post :search, to: 'favorite#search'
+      resources :dashboard, only: %i[index]
+      resources :favorites, except: %i[show] do
+        collection do
+          post :search, to: 'favorite#search'
+        end
+
+        post :bookmarks, to: 'bookmarks#create'
+        resources :favorite_datas
+      end
+    
+      resources :bookmarks, only: %i[destroy] do
+        collection do
+          get :my_bookmarks, to: 'bookmarks#my_bookmarks'
+        end
       end
 
-      resources :favorite_datas
-
-    end
-
+      resources :likes, only: %i[create destroy] 
 
     end
   end
