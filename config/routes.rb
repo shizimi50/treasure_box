@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   # BackEnd Rooting
   namespace 'api' do
     namespace 'v1' do
+      resources :account_activations, only: [:edit]
       resources :users do
         collection do
           get :current_user,  to: 'sessions#index'
