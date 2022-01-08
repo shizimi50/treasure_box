@@ -16,6 +16,10 @@ gem 'react-rails'
 # webpacker
 gem 'webpacker'
 
+# test
+gem 'rb-fsevent'
+gem 'growl', '1.0.3'
+
 # Carrierwave for uploading
 gem 'carrierwave', '~> 1.3.1' #アップロードするために必要
 gem 'mini_magick', '~> 4.9.5' #画像をリサイズするのに必要

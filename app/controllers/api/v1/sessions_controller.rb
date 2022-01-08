@@ -1,7 +1,6 @@
 module Api
   module V1
     class SessionsController < ApplicationController
-      include SessionsHelper
       before_action :require_login, except: [:create]
       
       # GET | /api/v1/users/current_user
@@ -11,11 +10,12 @@ module Api
       
       # ログイン POST | /api/v1/users/login (フロントから { email: 'メールアドレス', password: 'パスワード' }が送信される)
       def create
-        user = User.find_by(email: params[:email])
+        user = User.find_by(email: params[:email].downcase)
         if user && user.authenticate(params[:password])
-          session[:user_id] = user.id
-          session[:user_name] = user.name
-          payload = { message: 'ログインしました', name: user.name}
+          log_in user
+          # params[:session][:remember_me] == '1' ? remember(user) : forget(user)
+          remember(user)
+          payload = { message: 'ログインしました', name: user.name, user_id: user.id}
         else
           payload = { errors: 'メールアドレスまたはパスワードが正しくありません。'}
         end
@@ -24,7 +24,7 @@ module Api
 
       #ログアウト DELETE | /api/v1/users/logout
       def destroy
-        log_out
+        log_out if logged_in?
         render json: { message: 'ログアウトしました' }
       end
 
