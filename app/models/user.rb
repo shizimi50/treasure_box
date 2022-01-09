@@ -1,8 +1,8 @@
 class User < ApplicationRecord
 
-    attr_accessor :remember_token
-    before_save { self.email = email.downcase }
-
+    attr_accessor :remember_token, :activation_token
+    before_save   :downcase_email #オブジェクトが保存される直前、オブジェクトの作成時や更新時にそのコールバックが呼び出される
+    before_create :create_activation_digest #オブジェクトが作成されたときのみコールバックを呼び出す（別名：メソッド参照）
     
     # =====Validation======
     validates :name,  presence: true, length: { maximum: 50 }
@@ -44,6 +44,7 @@ class User < ApplicationRecord
     # 永続セッションのためにユーザーをデータベースに記憶する
     def remember
         self.remember_token = User.new_token
+        # ↓ 記憶トークンやダイジェストは既にデータベースにいるユーザーのために作成される
         update_attribute(:remember_digest, User.digest(remember_token)) #update_attributeは記憶ダイジェストを更新 ※バリデーションを素通りさせる必要あり
     end
 
@@ -84,6 +85,17 @@ class User < ApplicationRecord
     # 引数のfavoriteのidをもつ、レコードを削除してください
     def unbookmark(favorite)
         bookmark_favorites.destroy(favorite)
+    end
+
+    private
+
+    def downcase_email
+        self.email = email.downcase
+    end
+    
+    def create_activation_digest  
+        self.activation_token  = User.new_token  # 有効化トークンを作成および代入する
+        self.activation_digest = User.digest(activation_token) # ダイジェストを作成および代入する
     end
 
 
