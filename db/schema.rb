@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_31_080306) do
+ActiveRecord::Schema.define(version: 2022_01_09_120211) do
 
   create_table "bookmarks", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "favorite_id", null: false
@@ -90,6 +90,9 @@ ActiveRecord::Schema.define(version: 2021_08_31_080306) do
     t.datetime "reset_sent_at"
     t.string "remember_digest"
     t.datetime "deleted_at"
+    t.string "activation_digest"
+    t.boolean "activated", default: false
+    t.datetime "activated_at"
     t.index ["deleted_at"], name: "index_users_on_deleted_at"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
