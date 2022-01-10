@@ -25,8 +25,9 @@ module E2rMini
     config.load_defaults 6.1
 
     config.middleware.use ActionDispatch::Cookies #cookie機能を提供
-    config.middleware.use ActionDispatch::Session::CookieStore #セッションをcookieに保存する役割を担当する
+    # config.middleware.use ActionDispatch::Session::CookieStore #セッションをcookieに保存する役割を担当する
     config.middleware.use ActionDispatch::ContentSecurityPolicy::Middleware #Content-Security-Policyヘッダー設定用のDSLを提供
+    # config.middleware.use ActionDispatch::Session::ActiveRecordStore #Active Recordを使用してデータベース内にデータを格納。 (activerecord-session_storeのGemが必要)
     
     # Configuration for the application, engines, and railties goes here.
     #
@@ -39,7 +40,7 @@ module E2rMini
     # Only loads a smaller set of middleware suitable for API only apps.
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
-    config.api_only = true #session storeをcookieにする場合、true にした上で必要なmiddle wearを読み込む
+    config.api_only = false #session storeをcookieにする場合、true にした上で必要なmiddle wearを読み込む
     config.action_controller.include_all_helpers = false
   end
 end
