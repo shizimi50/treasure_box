@@ -5,11 +5,16 @@ class UserMailer < ApplicationMailer
   #
   #   en.user_mailer.reset_password_email.subject
   #
-  def reset_password_email(user)
-    default from: 'product_desk@e2rmini.jp' # 送信元のアドレスを指定できる
-    @user = User.find user.id
-    @url = edit_password_reset_url(@user.reset_password_token)
-    mail(to: user.email,
-         subject: 'パスワードリセット') # メールの宛先、件名を指定
+
+  def account_activations(user)
+    @user = user
+    mail to: user.email, subject: "Account activation"
+    @greeting = 'Hi'
   end
+  
+  def password_reset
+    @greeting = 'Hi'
+    mail to: "to@example.org" # メールの宛先
+  end
+
 end

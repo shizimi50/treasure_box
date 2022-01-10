@@ -24,13 +24,13 @@ class User < ApplicationRecord
     # ＝＝＝＝＝＝＝＝＝＝＝＝＝
     
     # ＝＝フレームワーク関連＝＝
-    has_secure_password # パスワードのハッシュ化
+    has_secure_password # パスワードのハッシュ化/2つのペアの仮想的な属性/authenticateメソッド利用化
     mount_uploader :photo_path, ImageUploader #「アップロード画像用のカラム」と「アップローダークラス」を紐づけ
     acts_as_paranoid #論理削除適用
     # ＝＝＝＝＝＝＝＝＝＝＝＝＝
     
     # 渡された文字列ハッシュ値を返す
-    def User.digest(string)
+    def User.digest(string) #クラスメソッド：インスタンスではなくクラス本体に紐付けられるメソッド
         cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
                                                       BCrypt::Engine.cost
         BCrypt::Password.create(string, cost: cost)
@@ -41,9 +41,9 @@ class User < ApplicationRecord
         SecureRandom.urlsafe_base64
     end
 
-    # 永続セッションのためにユーザーをデータベースに記憶する
+    # 永続セッションのためにユーザーをデータベースに記憶する（仮想属性（remember_token）のためのコード）
     def remember
-        self.remember_token = User.new_token
+        self.remember_token = User.new_token #self使うことで代入を実現
         # ↓ 記憶トークンやダイジェストは既にデータベースにいるユーザーのために作成される
         update_attribute(:remember_digest, User.digest(remember_token)) #update_attributeは記憶ダイジェストを更新 ※バリデーションを素通りさせる必要あり
     end
@@ -90,7 +90,8 @@ class User < ApplicationRecord
     private
 
     def downcase_email
-        self.email = email.downcase
+        email.downcase!                                                             # emailを小文字化してUserオブジェクトのemail属性に代入
+        # self.email = email.downcase
     end
     
     def create_activation_digest  
