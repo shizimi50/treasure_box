@@ -19,6 +19,7 @@ module Api
             def create
                 user = User.new(user_params_create)
                 if user.save
+                    user.send_activation_email
                     render json: user
                 else
                     render json: user.errors.full_messages #"Email has already been taken"

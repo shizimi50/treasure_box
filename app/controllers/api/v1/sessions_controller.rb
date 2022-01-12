@@ -12,10 +12,14 @@ module Api
       def create
         user = User.find_by(email: params[:email].downcase)
         if user && user.authenticate(params[:password])
-          log_in user
-          # params[:session][:remember_me] == '1' ? remember(user) : forget(user)
-          remember(user)
-          payload = { message: 'ログインしました', name: user.name, user_id: user.id}
+          if user.activated?
+            log_in user
+            params[:remember_me] == '1' ? remember(user) : forget(user)
+            redirect_back_or user
+          else
+            payload  = "アカウントが有効ではありません。"
+            payload += "メールアドレスからリンクを確認してください。"
+          end
         else
           payload = { errors: 'メールアドレスまたはパスワードが正しくありません。'}
         end
