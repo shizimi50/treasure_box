@@ -68,6 +68,17 @@ class User < ApplicationRecord
         update
     end
 
+    #アカウントを有効にする
+    def activate
+        update_attribute(:activated, true)
+        update_attribute(:activated_at, Time.zone.now)
+    end
+
+    # 有効化用のメールを送信する
+    def send_activation_email
+        update_attribute(:activation(self).deliver_now)
+    end
+
      # 引数に渡されたものが、userのものであるか？
     def own?(object)
         id == object.user_id
