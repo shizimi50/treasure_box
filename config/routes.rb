@@ -13,7 +13,6 @@ Rails.application.routes.draw do
   # BackEnd Rooting
   namespace 'api' do
     namespace 'v1' do
-      resources :account_activations, only: [:edit]
       resources :users do
         collection do
           get :current_user,  to: 'sessions#index'
@@ -31,6 +30,10 @@ Rails.application.routes.draw do
         #   post :password, to: 'password_resets#update'
         # end
       end
+
+      resources :account_activations, only: [:edit]
+
+
 
       # resources :password_resets, only: %i[create update]
 
