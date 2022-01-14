@@ -17,12 +17,12 @@ module Api
             end
 
             def create
-                user = User.new(user_params_create)
-                if user.save
-                    user.send_activation_email
-                    render json: user
+                @user = User.new(user_params_create)
+                if @user.save
+                    @user.send_activation_email
+                    render json: @user
                 else
-                    render json: user.errors.full_messages #"Email has already been taken"
+                    render json: @user.errors.full_messages #"Email has already been taken"
                 end
             end
 
@@ -56,6 +56,14 @@ module Api
             def user_params
                 params.permit(:name, :email)
             end
+
+        
+            # 正しいユーザーかどうか確認
+            def correct_user
+                @user = User.find(params[:id])
+                redirect_to(root_url) unless current_user?(@user)
+            end
+
 
         end
 
