@@ -3,11 +3,18 @@ module Api
         class FavoriteDatasController < ApplicationController
             before_action :favorite_data_params, only:[:create, :update, :destroy]
             before_action :set_favorite_data, only:[:show, :update, :destroy]
-
+            
             def index
-                favorite_datas = FavoriteData.all
-                render json: favorite_datas    
+                # sortkey = params[:sortkey] #ソートパラメータ
+                q = params[:q] #検索パラメータ
+                results = FavoriteData.where('title LIKE ? OR star LIKE ?', "%#{q}%", "%#{q}%");
+                if q.blank? #検キーが入力されていない場合
+                    render json: { status: 200, message: "success", data: { favorite_data: results }}  
+                else 
+                    render json: { status: 200, message: "success", data: { favorite_data: results.order(sortkey) }}  
+                end
             end
+            
 
             def show
                 render json: @favorite_data
