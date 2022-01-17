@@ -10,15 +10,14 @@ module Api
           if user.activated?
             log_in user
             params[:remember_me] == '1' ? remember(user) : forget(user)
-            redirect_back_or user
+            render json: { message: 'ログインしました', data: user }
+            # redirect_back_or user
           else
-            payload  = "アカウントが有効ではありません。" 
-            payload += "メールアドレスからリンクを確認してください。" 
+            render json: { message: 'アカウントが有効ではありません。メールアドレスからリンクを確認してください。' }
           end
         else
-          payload = { errors: 'メールアドレスまたはパスワードが正しくありません。'}
+          render json: { errors: 'メールアドレスまたはパスワードが正しくありません。'}
         end
-          render json: payload
       end
 
       #ログアウト DELETE | /api/v1/users/logout
