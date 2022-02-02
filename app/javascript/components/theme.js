@@ -1,4 +1,4 @@
-import { createMuiTheme } from '@material-ui/core/styles';
+import { createTheme } from '@material-ui/core/styles';
 import { grey } from '@material-ui/core/colors';
 
 // Font
@@ -9,7 +9,7 @@ const fontFamily = [
   'sans-serif',
 ].join(',');
 
-const theme = createMuiTheme({
+const theme = createTheme({
   typography: {
     fontFamily: fontFamily,  // フォント
   },
