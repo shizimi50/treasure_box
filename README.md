@@ -1,24 +1,19 @@
-# README
+# Treasure Box
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## アプリケーション概要
 
-Things you may want to cover:
+# 使用言語・技術
 
-* Ruby version
+- Ruby
+- Ruby on Rails
+- SQL
+- JavaScript
+- React
+- Material UI
+- HTML/CSS
 
-* System dependencies
+## 画面イメージ
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+| ログイン画面 | ログアウト画面 |
+| ------------ | -------------- |
+| ![login]()   | ![logout]()    |
