@@ -1,7 +1,7 @@
 class Api::V1::ApplicationController < ActionController::API
     include ActionController::Cookies
     include SessionsHelper
-    before_action :check_xhr_header #リクエストがxhrであることをチェックする
+    # before_action :check_xhr_header #リクエストがxhrであることをチェックする
 
     private
 
