@@ -9,6 +9,12 @@ module Api
                 render json: favorites                
             end
 
+            def dashboard
+                favorites = Favorite.where(user_id: current_user.id) #MyFavorite
+                # Others Latest Favorite
+                # Favorite Ranking
+            end
+
             def create
                 favorite = Favorite.new(favorite_params)
                 if favorite.save
