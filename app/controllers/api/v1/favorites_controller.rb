@@ -11,6 +11,7 @@ module Api
 
             def dashboard
                 favorites = Favorite.where(user_id: current_user.id) #MyFavorite
+                favorites = Favorite.where.not(user_id: current_user.id).order(updated_at: :desc).limit(3) #MyFavorite
                 # Others Latest Favorite
                 # Favorite Ranking
             end
