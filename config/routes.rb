@@ -39,8 +39,8 @@ Rails.application.routes.draw do
 
       resources :favorites, except: %i[show] do
         collection do
-          post :search, to: 'favorite#search'
-          get :dashboard, to: 'favorite#dashboard'
+          post :search, to: 'favorites#search'
+          get :dashboard, to: 'favorites#dashboard'
         end
 
         post :bookmarks, to: 'bookmarks#create'
