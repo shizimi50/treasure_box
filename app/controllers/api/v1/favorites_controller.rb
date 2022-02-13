@@ -11,11 +11,10 @@ module Api
 
             def dashboard
                 myfavorites = Favorite.where(user_id: current_user.id) #MyFavorite
-                othersfavorites = Favorite.where.not(user_id: current_user.id).order(updated_at: :desc).limit(3) #MyFavorite
-                render json: {MyFavorites: myfavorites, OthersFavorites: othersfavorites}
+                othersfavorites = Favorite.where.not(user_id: current_user.id).order(updated_at: :desc).limit(3) #Others Latest Favorite
+                rankingfavorites = FavoriteData.where(star: 5).limit(3) # Favorite Ranking
+                render json: {MyFavorites: myfavorites, OthersFavorites: othersfavorites, RankingFavorites: rankingfavorites}
 
-                # Others Latest Favorite
-                # Favorite Ranking
             end
 
             def create
