@@ -6,7 +6,7 @@ module Api
             
             def index
                 favorites = Favorite.all
-                render json: favorites                
+                render json: favorites, each_serializer: FavoriteSerializer
             end
 
             def dashboard
