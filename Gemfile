@@ -46,6 +46,9 @@ gem 'paranoia'
 # Define environment variables
 gem 'dotenv-rails' #追加
 
+# Serializer
+gem 'active_model_serializers'
+
 # Windows platform
 gem 'wdm' if Gem.win_platform?
 
