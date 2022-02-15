@@ -5,7 +5,7 @@ module Api
             before_action :set_favorite, only:[:update, :destroy]
             
             def index
-                favorites = Favorite.all
+                favorites = Favorite.where(user_id: current_user.id)
                 render json: favorites, each_serializer: FavoriteSerializer
             end
 

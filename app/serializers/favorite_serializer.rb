@@ -1,5 +1,5 @@
 class FavoriteSerializer < ActiveModel::Serializer
-  attribute :id, :theme, :user_id, :image_path, :deleted_at
+  attributes :id, :theme, :user_id, :image_path
 
-  # has_many :favorite_datas
+  has_many :favorite_datas
 end
