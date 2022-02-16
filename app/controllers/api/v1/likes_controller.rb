@@ -4,6 +4,11 @@ module Api
             before_action :require_login
             before_action :like_params, only: [:destroy]
 
+            def index
+                 likes = current_user.likes
+                 render json: { status: 'success', data:likes}
+            end
+
             def create
                 like = Like.create(user_id: @current_user.id, favorite_data_id: params[:favorite_data_id])
                 render json: like
