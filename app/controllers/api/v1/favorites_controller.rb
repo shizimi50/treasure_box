@@ -5,15 +5,17 @@ module Api
             before_action :set_favorite, only:[:update, :destroy]
             
             def index
-                favorites = Favorite.where(user_id: current_user.id)
-                render json: favorites, each_serializer: FavoriteSerializer
+                favorites = Favorite.all
+                render json: favorites
+                # render json: favorites, serializer: FavoriteSerializer
             end
 
             def dashboard
-                myfavorites = Favorite.where(user_id: current_user.id) #MyFavorite
+                myfavorites = Favorite.where(user_id: current_user.id).limit(3) #MyFavorite
                 othersfavorites = Favorite.where.not(user_id: current_user.id).order(updated_at: :desc).limit(3) #Others Latest Favorite
-                rankingfavorites = FavoriteData.where(star: 5).limit(3) # Favorite Ranking
-                render json: {MyFavorites: myfavorites, OthersFavorites: othersfavorites, RankingFavorites: rankingfavorites}
+                rankingfavorites = FavoriteData.find(Like.group(:favorite_data_id).order('count(favorite_data_id) desc').limit(3).pluck(:favorite_data_id)) # Favorite Ranking
+
+                render json: {data: {my_favorite: myfavorites, lastest_favorite: othersfavorites, favorite_ranking: rankingfavorites }}
 
             end
 
