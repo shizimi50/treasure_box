@@ -16,7 +16,6 @@ module Api
                 rankingfavorites = FavoriteData.find(Like.group(:favorite_data_id).order('count(favorite_data_id) desc').limit(3).pluck(:favorite_data_id)) # Favorite Ranking
 
                 render json: {data: {my_favorite: myfavorites, lastest_favorite: othersfavorites, favorite_ranking: rankingfavorites }}
-
             end
 
             def create
@@ -45,6 +44,15 @@ module Api
             end
 
             def search
+                # sortkey = params[:sortkey] #ソートパラメータ
+                q = params[:title] #検索パラメータ
+                # results = FavoriteData.where('title LIKE ? OR star LIKE ?', "%#{q}%", "%#{q}%")
+                results = Favorite.where('theme LIKE ?', "%#{q}%")
+                if q.blank? #検キーが入力されていない場合
+                    render json: { status: 200, message: "success", data: { favorite_data: results }}  
+                else 
+                    render json: { status: 200, message: "success", data: { favorite_data: results.order(:id) }}  
+                end
             end
 
             private
