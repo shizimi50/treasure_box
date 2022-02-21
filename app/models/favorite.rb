@@ -28,5 +28,17 @@ class Favorite < ApplicationRecord
         FavoriteData.where(star: 5).limit(3) # Favorite Ranking
     end
 
+    scope :has_favorite_id, -> favorite_id {
+        joins(:favorite_datas).merge(FavoriteData.where(favorite_id: favorite_id))
+    }
+
+    def self.search(search) #self.でクラスメソッドとしている
+        if search # Controllerから渡されたパラメータが!= nilの場合は、titleカラムを部分一致検索
+          Project.where(['theme LIKE ?', "%#{search}%"])
+        else
+          Project.all #全て表示。
+        end
+      end
+
     
 end
