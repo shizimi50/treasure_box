@@ -25,7 +25,6 @@ import Deposits from './Deposits';
 import Orders from './Orders';
 import theme from './theme';
 import Copyright from './Copyright';
-import MediaControlCard from './MediaControlCard';
 
 const drawerWidth = 240;
 
@@ -108,7 +107,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Dashboard() {
+export default function Search() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
   const handleDrawerOpen = () => {
@@ -135,7 +134,7 @@ export default function Dashboard() {
               <MenuIcon />
             </IconButton>
             <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-              Dashboard
+              全体からキーワード検索
             </Typography>
             <IconButton color="inherit">
               <Badge badgeContent={4} color="secondary">
@@ -165,11 +164,12 @@ export default function Dashboard() {
           <div className={classes.appBarSpacer} />
           <Container maxWidth="lg" className={classes.container}>
             <Grid container spacing={3}>
-              <Grid item xs={12}>
-                <MediaControlCard>
-                </MediaControlCard> 
+              {/* Chart */}
+              <Grid item xs={12} md={8} lg={9}>
+                <Paper className={fixedHeightPaper}>
+                  <Chart />
+                </Paper>
               </Grid>
-
               {/* Recent Deposits */}
               <Grid item xs={12} md={4} lg={3}>
                 <Paper className={fixedHeightPaper}>

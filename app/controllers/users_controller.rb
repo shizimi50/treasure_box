@@ -1,13 +1,13 @@
 class UsersController < ApplicationController
-  def login
+  def login #S001
   end
 
-  def signup
+  def signup #S002
   end
 
-  def resetpassword
+  def resetpassword #S003
   end
 
-  def sample
+  def sample #テスト
   end
 end
