@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get 'signup' => 'users#signup'
   get 'resetpassword' => 'users#resetpassword'
   get 'dashboard' => 'dashboard#index'
+  get 'search' => 'dashboard#search'
   get 'sample' => 'users#sample'
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
