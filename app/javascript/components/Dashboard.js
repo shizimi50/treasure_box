@@ -25,6 +25,7 @@ import Deposits from './Deposits';
 import Orders from './Orders';
 import theme from './theme';
 import Copyright from './Copyright';
+import MediaControlCard from './MediaControlCard';
 
 const drawerWidth = 240;
 
@@ -164,12 +165,11 @@ export default function Dashboard() {
           <div className={classes.appBarSpacer} />
           <Container maxWidth="lg" className={classes.container}>
             <Grid container spacing={3}>
-              {/* Chart */}
-              <Grid item xs={12} md={8} lg={9}>
-                <Paper className={fixedHeightPaper}>
-                  <Chart />
-                </Paper>
+              <Grid item xs={12}>
+                <MediaControlCard>
+                </MediaControlCard> 
               </Grid>
+
               {/* Recent Deposits */}
               <Grid item xs={12} md={4} lg={3}>
                 <Paper className={fixedHeightPaper}>
